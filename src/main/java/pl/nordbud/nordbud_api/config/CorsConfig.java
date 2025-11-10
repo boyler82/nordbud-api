@@ -1,25 +1,25 @@
 package pl.nordbud.nordbud_api.config;
 
-
-import org.springframework.context.annotation.*;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfig {
-
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        // PROD + preview z Vercela + lokalny dev
-                        .allowedOriginPatterns("https://*.vercel.app", "http://localhost:5173")
-                        // preflight musi mieć POST i OPTIONS
-                        .allowedMethods("GET", "POST", "OPTIONS")
-                        // WAŻNE: zezwól na nagłówki używane w preflight
-                        .allowedHeaders("Content-Type", "Authorization")
-                        // (opcjonalnie) .allowCredentials(true)
+                        .allowedOrigins(
+                                "https://valheimbygg.no",
+                                "https://www.valheimbygg.no"
+                        )
+                        .allowedMethods("GET","POST","OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(false)
                         .maxAge(3600);
             }
         };
