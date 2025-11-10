@@ -43,7 +43,7 @@ public class MailService {
     }
 
     public void sendLeadToOwner(LeadRequest req, HttpServletRequest http) throws Exception {
-        String subject = "Nordbud – nowe zapytanie od: " + req.name();
+        String subject = "Valheimbygg – nowe zapytanie od: " + req.name();
         String when = ZonedDateTime.now(ZoneId.of("Europe/Warsaw"))
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z"));
         String ip = clientIp(http);
@@ -79,7 +79,7 @@ public class MailService {
         MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
         helper.setTo(ownerEmail);
         helper.setSubject(subject);
-        helper.setFrom(ownerEmail, "Nordbud – www");   // nadawca = Twoje konto Gmail
+        helper.setFrom(ownerEmail, "Valheimbygg – www");   // nadawca = Twoje konto Gmail
         helper.setReplyTo(req.email(), req.name());     // odpowiedz trafia do klienta
         helper.setText(html, true);                     // HTML
         mailSender.send(msg);
